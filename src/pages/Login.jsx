@@ -50,8 +50,6 @@ export default class Login extends Component {
     const { senha, email, isDisabled } = this.state;
     return (
       <div>
-        {senha}
-        {email}
         <input
           type="email"
           required
