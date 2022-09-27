@@ -1,13 +1,18 @@
 import { array } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import CardRecipes from './CardRecipe';
 
 function Recipes({ recipesDrinks, recipesMeals }) {
+  console.log(recipesDrinks.length);
   return (
     <ol className="cards">
       {recipesDrinks && recipesDrinks.map((drink, i) => {
         const { idDrink, strDrinkThumb, strDrink } = drink;
+        if (recipesDrinks.length === 1) {
+          return <Redirect to={ `/drinks/${idDrink}` } />;
+        }
         return (
           <CardRecipes
             key={ i }
@@ -21,6 +26,9 @@ function Recipes({ recipesDrinks, recipesMeals }) {
 
       {recipesMeals && recipesMeals.map((meals, i) => {
         const { idMeal, strMealThumb, strMeal } = meals;
+        if (recipesMeals.length === 1) {
+          return <Redirect to={ `/meals/${idMeal}` } />;
+        }
         return (
           <CardRecipes
             key={ i }
