@@ -1,12 +1,12 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-/* import { createMemoryHistory } from 'history'; */
 import React from 'react';
 import App from '../App';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testando a página inicial "Login"', () => {
   it('Test rendering and inicial values', () => {
-    render(<App />);
+    renderWithRouter(<App />);
     const emailInnput = screen.getByTestId('email-input');
     expect(emailInnput).toBeInTheDocument();
     const passwordInnput = screen.getByTestId('password-input');
