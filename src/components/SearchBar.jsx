@@ -1,10 +1,7 @@
 import { string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchFirst, fetchName, fethIngredient } from '../redux/actions/action';
-import FirstApi from '../services/FirstApi';
-import IngredientApi from '../services/IngredientApi';
-import NameApi from '../services/NameApi';
+import { handCh } from '../redux/actions/action';
 
 class SearchBar extends Component {
   state = {
@@ -13,24 +10,14 @@ class SearchBar extends Component {
 
   handleChange = ({ target }) => {
     const { id, name } = target;
-    if (name === 'filter') this.setState({ first: id });
-  };
-
-  handClick = async () => {
-    const { nome } = this.props;
-    const { first } = this.state;
-    const { dispatch } = this.props;
-    if (first === 'Ingredient') {
-      const a = await IngredientApi(nome);
-      dispatch(fethIngredient(a));
-    } else if (first === 'Name') {
-      const a = await NameApi(nome);
-      dispatch(fetchName(a));
-    } else if (first === 'First letter' && nome.length > 1) {
-      global.alert('Your search must have only 1 (one) character');
-    } else {
-      const a = await FirstApi(nome);
-      dispatch(fetchFirst(a));
+    if (name === 'filter') {
+      this.setState({
+        first: id,
+      }, () => {
+        const { first } = this.state;
+        const { dispatch } = this.props;
+        dispatch(handCh(first));
+      });
     }
   };
 
@@ -64,13 +51,6 @@ class SearchBar extends Component {
           />
           First letter
         </div>
-        <button
-          type="button"
-          data-testid="exec-search-btn"
-          onClick={ this.handClick }
-        >
-          Entrar
-        </button>
       </div>
     );
   }
