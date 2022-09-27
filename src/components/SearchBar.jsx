@@ -18,7 +18,6 @@ class SearchBar extends Component {
 
   handClick = async () => {
     const { nome } = this.props;
-    console.log(nome);
     const { first } = this.state;
     const { dispatch } = this.props;
     if (first === 'Ingredient') {

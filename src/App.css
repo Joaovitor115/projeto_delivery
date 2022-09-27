@@ -66,3 +66,16 @@
     transform: rotate(-10deg);
   }
 }
+
+.recipe-image {
+  width: 150px;
+  height: 150px;
+}
+
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content:space-around;
+}
