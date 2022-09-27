@@ -4,6 +4,8 @@ import {
   NAMEINPUT,
   RECIPES_DRINKS,
   RECIPES_MEALS,
+  CATEGORIES_DRINKS,
+  CATEGORIES_MEALS,
 } from '../actions/action';
 
 const INICIAL_STATE = {
@@ -11,6 +13,8 @@ const INICIAL_STATE = {
   recipesDrinks: [],
   recipesMeals: [],
   hand: '',
+  buttonsCategorieDrinks: [],
+  buttonsCategorieMeals: [],
 };
 
 const reducerFetch = (state = INICIAL_STATE, action) => {
@@ -50,6 +54,16 @@ const reducerFetch = (state = INICIAL_STATE, action) => {
       ...state,
       hand: action.payload,
     };
+  case CATEGORIES_DRINKS:
+    return ({
+      ...state,
+      buttonsCategorieDrinks: action.payload,
+    });
+  case CATEGORIES_MEALS:
+    return ({
+      ...state,
+      buttonsCategorieMeals: action.payload,
+    });
   default:
     return state;
   }
