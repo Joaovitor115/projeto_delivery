@@ -1,9 +1,17 @@
-import { FIRSTAPI, INGREDIENT, NAME } from '../actions/action';
+import {
+  FIRSTAPI,
+  INGREDIENT,
+  NAME,
+  RECIPES_DRINKS,
+  RECIPES_MEALS,
+} from '../actions/action';
 
 const INICIAL_STATE = {
   ingredientes: [],
   name: [],
   first: [],
+  recipesDrinks: [],
+  recipesMeals: [],
 };
 
 const reducerFetch = (state = INICIAL_STATE, action) => {
@@ -23,6 +31,16 @@ const reducerFetch = (state = INICIAL_STATE, action) => {
       ...state,
       first: action.payload,
     };
+  case RECIPES_DRINKS:
+    return ({
+      ...state,
+      recipesDrinks: action.payload,
+    });
+  case RECIPES_MEALS:
+    return ({
+      ...state,
+      recipesMeals: action.payload,
+    });
   default:
     return state;
   }

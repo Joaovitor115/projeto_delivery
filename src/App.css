@@ -66,3 +66,17 @@
     transform: rotate(-10deg);
   }
 }
+
+.recipe-image {
+  height: 100px;
+  width: 100px;
+}
+
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  max-height: 700px;
+  max-width: 400px;
+  text-align: center;
+}
