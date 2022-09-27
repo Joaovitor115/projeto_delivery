@@ -68,14 +68,15 @@
 }
 
 .recipe-image {
-  width: 150px;
-  height: 150px;
+  height: 100px;
+  width: 100px;
 }
 
 .cards {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  text-align: center;
+  flex-flow: row wrap ;
   justify-content:space-around;
+  text-align: center;
+  max-height:700px ;
+  max-width: 400px;
 }
