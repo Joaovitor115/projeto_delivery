@@ -3,7 +3,7 @@ import {
   NAME,
   NAMEINPUT,
   RECIPES_DRINKS,
-  RECIPES_MEALS
+  RECIPES_MEALS,
 } from '../actions/action';
 
 const INICIAL_STATE = {
