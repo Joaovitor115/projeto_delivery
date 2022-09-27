@@ -2,7 +2,6 @@ import React from 'react';
 import { array } from 'prop-types';
 
 function ButtonsCategories({ categories }) {
-  console.log(categories);
   return (
     <div>
       {categories.map((categorie, index) => (
