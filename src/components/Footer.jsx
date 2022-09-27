@@ -1,7 +1,7 @@
 import React from 'react';
-import { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { func } from 'prop-types';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 import { recipesDrinksAPI, recipesMealsAPI } from '../services/RecipesAPI';
