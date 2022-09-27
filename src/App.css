@@ -74,9 +74,9 @@
 
 .cards {
   display: flex;
-  flex-flow: row wrap ;
+  flex-flow: row wrap;
   justify-content: space-around;
-  max-height: 700px ;
+  max-height: 700px;
   max-width: 400px;
   text-align: center;
 }
