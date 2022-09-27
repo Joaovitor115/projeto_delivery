@@ -5,9 +5,12 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
 import { fetchDrinksRecipes } from '../redux/actions/action';
+import DrinkIngredientsApi from '../services/DrinkIngredientsApi';
+import DrinksFirstLetterApi from '../services/DrinksFirstLetterApi';
+import DrinksNameApi from '../services/DrinksNameApi';
 import { recipesDrinksAPI } from '../services/RecipesAPI';
 
-function DrinkRecipes({ requiredFetchDrinksRecipe }) {
+function DrinkRecipes({ requiredFetchDrinksRecipe, first, nome }) {
   useEffect(() => {
     (async () => {
       const recipes = await recipesDrinksAPI();
@@ -16,20 +19,17 @@ function DrinkRecipes({ requiredFetchDrinksRecipe }) {
   }, [requiredFetchDrinksRecipe]);
 
   const handClick = async () => {
-    /* const { nome } = this.props;
-    const { first } = this.state;
-    const { dispatch } = this.props; */
     if (first === 'Ingredient') {
-      const a = await IngredientApi(nome);
-      dispatch(fethIngredient(a));
+      const a = await DrinkIngredientsApi(nome);
+      requiredFetchDrinksRecipe(a);
     } else if (first === 'Name') {
-      const a = await NameApi(nome);
-      dispatch(fetchName(a));
+      const a = await DrinksNameApi(nome);
+      requiredFetchDrinksRecipe(a);
     } else if (first === 'First letter' && nome.length > 1) {
       global.alert('Your search must have only 1 (one) character');
     } else {
-      const a = await FirstApi(nome);
-      dispatch(fetchFirst(a));
+      const a = await DrinksFirstLetterApi(nome);
+      requiredFetchDrinksRecipe(a);
     }
   };
   return (
@@ -48,7 +48,9 @@ function DrinkRecipes({ requiredFetchDrinksRecipe }) {
   );
 }
 const mapStateToProps = (state) => ({
-  recipesDrinks: state.reducerFetch.recipesDrinks,
+  recipesMeals: state.reducerFetch.recipesMeals,
+  first: state.reducerFetch.hand,
+  nome: state.reducerFetch.name,
 });
 const mapDispatchToProps = (dispatch) => ({
   requiredFetchDrinksRecipe: (recipes) => dispatch(fetchDrinksRecipes(recipes)),
