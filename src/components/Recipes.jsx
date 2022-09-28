@@ -46,7 +46,7 @@ function Recipes({ recipesDrinks, recipesMeals, buttonClick }) {
       redirectMeals();
     } else {
       const list = recipesMeals.map((meals, i) => {
-        const { idMeals: id, strMealThumb, strMeal } = meals;
+        const { idMeal: id, strMealThumb, strMeal } = meals;
         return (
           <CardRecipes
             key={ i }
@@ -64,7 +64,6 @@ function Recipes({ recipesDrinks, recipesMeals, buttonClick }) {
   return (
     <ol className="cards">
       { listDrinks() }
-
       { listMeals() }
     </ol>
   );

@@ -8,6 +8,7 @@ import {
   fetchMealsRecipes,
   requiredCategorieMeals,
   requiredTypeButtonClick,
+  typePageSelect,
 } from '../redux/actions/action';
 import FirstApi from '../services/FirstApi';
 import IngredientApi from '../services/IngredientApi';
@@ -23,15 +24,17 @@ function MealsRecipes({
   requiredFetchMealsCategories,
   mealsCategories,
   redquiredTypeButton,
+  typePageS,
 }) {
   useEffect(() => {
     (async () => {
       const categories = await buttonsCategorieMeals();
+      typePageS('meals');
       requiredFetchMealsCategories(categories);
       const recipes = await recipesMealsAPI();
       requiredFetchMealsRecipe(recipes);
     })();
-  }, [requiredFetchMealsRecipe, requiredFetchMealsCategories]);
+  }, [requiredFetchMealsRecipe, requiredFetchMealsCategories, typePageS]);
 
   const handClick = async () => {
     redquiredTypeButton('meals');
@@ -74,8 +77,10 @@ const mapDispatchToProps = (dispatch) => ({
   requiredFetchMealsRecipe: (recipes) => dispatch(fetchMealsRecipes(recipes)),
   requiredFetchMealsCategories: (cate) => dispatch(requiredCategorieMeals(cate)),
   redquiredTypeButton: (type) => dispatch(requiredTypeButtonClick(type)),
+  typePageS: (page) => dispatch(typePageSelect(page)),
 });
 MealsRecipes.propTypes = {
   requiredFetchMealsRecipe: func,
 }.isrequired;
+
 export default connect(mapStateToProps, mapDispatchToProps)(MealsRecipes);
