@@ -9,6 +9,8 @@ import {
   RECIPES_MEALS,
   CATEGORIES_DRINKS,
   CATEGORIES_MEALS,
+  CATEGORY_SELECTED,
+  TYPE_PAGE_SELECT,
 } from '../actions/action';
 
 const INICIAL_STATE = {
@@ -19,6 +21,8 @@ const INICIAL_STATE = {
   buttonClick: '',
   buttonsCategorieDrinks: [],
   buttonsCategorieMeals: [],
+  categorySelected: '',
+  pageSelected: '',
 };
 
 const reducerFetch = (state = INICIAL_STATE, action) => {
@@ -33,6 +37,8 @@ const reducerFetch = (state = INICIAL_STATE, action) => {
   case CATEGORIES_DRINKS: return ({ ...state, buttonsCategorieDrinks: action.payload });
   case CATEGORIES_MEALS: return ({ ...state, buttonsCategorieMeals: action.payload });
   case TYPE_BUTTON_CLICK: return ({ ...state, buttonClick: action.payload });
+  case CATEGORY_SELECTED: return ({ ...state, categorySelected: action.payload });
+  case TYPE_PAGE_SELECT: return ({ ...state, pageSelected: action.payload });
   default: return state;
   }
 };
