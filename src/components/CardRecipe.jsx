@@ -2,7 +2,6 @@ import { string } from 'prop-types';
 import React from 'react';
 
 function CardRecipes({ name, image, indice }) {
-  console.log(indice);
   return (
     <div>
       <li data-testid={ `${indice}-recipe-card` }>
