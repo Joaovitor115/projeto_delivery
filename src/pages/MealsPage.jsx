@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipes from '../components/Recipes';
-import { fetchMealsRecipes, requiredCategorieMeals } from '../redux/actions/action';
+import {
+  fetchMealsRecipes,
+  requiredCategorieMeals,
+  requiredTypeButtonClick,
+} from '../redux/actions/action';
 import FirstApi from '../services/FirstApi';
 import IngredientApi from '../services/IngredientApi';
 import NameApi from '../services/NameApi';
@@ -18,6 +22,7 @@ function MealsRecipes({
   nome,
   requiredFetchMealsCategories,
   mealsCategories,
+  redquiredTypeButton,
 }) {
   useEffect(() => {
     (async () => {
@@ -29,6 +34,7 @@ function MealsRecipes({
   }, [requiredFetchMealsRecipe, requiredFetchMealsCategories]);
 
   const handClick = async () => {
+    redquiredTypeButton('meals');
     if (first === 'Ingredient') {
       const a = await IngredientApi(nome);
       requiredFetchMealsRecipe(a);
@@ -67,6 +73,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   requiredFetchMealsRecipe: (recipes) => dispatch(fetchMealsRecipes(recipes)),
   requiredFetchMealsCategories: (cate) => dispatch(requiredCategorieMeals(cate)),
+  redquiredTypeButton: (type) => dispatch(requiredTypeButtonClick(type)),
 });
 MealsRecipes.propTypes = {
   requiredFetchMealsRecipe: func,
