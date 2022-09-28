@@ -5,19 +5,19 @@ import { Link } from 'react-router-dom';
 
 function CardRecipes({ name, image, indice, id, pageSelected }) {
   return (
-    <div>
+
+    <li data-testid={ `${indice}-recipe-card` }>
       <Link to={ `/${pageSelected}/${id}` }>
-        <li data-testid={ `${indice}-recipe-card` }>
-          <img
-            data-testid={ `${indice}-card-img` }
-            className="recipe-image"
-            src={ image }
-            alt={ name }
-          />
-          <p data-testid={ `${indice}-card-name` }>{ name }</p>
-        </li>
+        <img
+          data-testid={ `${indice}-card-img` }
+          className="recipe-image"
+          src={ image }
+          alt={ name }
+        />
+        <p data-testid={ `${indice}-card-name` }>{ name }</p>
       </Link>
-    </div>
+    </li>
+
   );
 }
 
