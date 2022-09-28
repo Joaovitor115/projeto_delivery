@@ -64,7 +64,6 @@ function Recipes({ recipesDrinks, recipesMeals, buttonClick }) {
   return (
     <ol className="cards">
       { listDrinks() }
-
       { listMeals() }
     </ol>
   );
