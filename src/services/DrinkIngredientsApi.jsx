@@ -3,6 +3,7 @@ const DrinkIngredientsApi = async (token) => {
   const request = await fetch(url);
   const response = await request.json();
   const NUMBER_MAGIC = 11;
+  if (response.drinks === null) return [];
   const currencyDrinks = response.drinks.filter((_d, i) => i <= NUMBER_MAGIC);
   return currencyDrinks;
 };
