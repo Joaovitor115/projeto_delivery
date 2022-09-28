@@ -62,7 +62,7 @@ function Recipes({ recipesDrinks, recipesMeals, buttonClick }) {
   };
 
   return (
-    <ol className="cards">
+    <ol className="cards" data-testid="cards">
       { listDrinks() }
       { listMeals() }
     </ol>
