@@ -2,11 +2,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import App from '../App';
-import renderWithRouter from './helpers/renderWithRouter';
+import rendeWithRouterAndRedux from './helpers/rendeWithRouterAndRedux';
 
 describe('Testando a página inicial "Login"', () => {
   it('Test rendering and inicial values', () => {
-    renderWithRouter(<App />);
+    rendeWithRouterAndRedux(<App />);
     const emailInnput = screen.getByTestId('email-input');
     expect(emailInnput).toBeInTheDocument();
     const passwordInnput = screen.getByTestId('password-input');
