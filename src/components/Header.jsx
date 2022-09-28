@@ -4,26 +4,27 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-// import { requiretName } from '../redux/actions/action';
+import { requiretName } from '../redux/actions/action';
 import SearchBar from './SearchBar';
-// name, requiret
-function Header({ titlePage, iconProfile, iconSearch }) {
+
+function Header({ titlePage, iconProfile, iconSearch, name, requiret }) {
   const [visibleSearch, setVisibleSearch] = useState(false);
 
   const setSearch = () => {
     setVisibleSearch(!visibleSearch);
   };
 
-  // const handChange = ({ target }) => {
-  //   requiret(target.value);
-  // };
+  const handChange = ({ target }) => {
+    requiret(target.value);
+  };
 
   return (
     <section>
       {visibleSearch && <input
         data-testid="search-input"
         type="text"
-        name="name"
+        value={ name }
+        onChange={ handChange }
       />}
       <h1 data-testid="page-title">{ titlePage }</h1>
       {iconProfile && (
@@ -45,13 +46,13 @@ function Header({ titlePage, iconProfile, iconSearch }) {
   );
 }
 
-// const mapStateToProps = (state) => ({
-//   name: state.reducerFetch.name,
-// });
-// const mapDispatchToProps = (dispatch) => ({
-//   requiret: (name) => dispatch(requiretName(name)),
-// });
+const mapStateToProps = (state) => ({
+  name: state.reducerFetch.name,
+});
+const mapDispatchToProps = (dispatch) => ({
+  requiret: (name) => dispatch(requiretName(name)),
+});
 Header.propTypes = {
   requiredFetchMealsRecipe: func,
 }.isrequired;
-export default connect()(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

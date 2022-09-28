@@ -1,13 +1,20 @@
 import { screen } from '@testing-library/react';
-import React from 'react';
 import userEvent from '@testing-library/user-event';
-import MealsPage from '../pages/MealRecipe';
-import DrinksPage from '../pages/DrinksPage';
-import renderWithRouterAndRedux from './helpers/rendeWithRouterAndRedux';
+import React from 'react';
 import Header from '../components/Header';
+import DrinksPage from '../pages/DrinksPage';
+import MealsPage from '../pages/MealsPage';
+/* import MealsPage from '../pages/MealRecipe'; */
+/* import meals from './helpers/meals'; */
+import renderWithRouterAndRedux from './helpers/rendeWithRouterAndRedux';
 
 describe('Testando componente Header', () => {
-  test('testa a rendericação do header no componente "drinksPage"', () => {
+  /* const mockFetch = () => Promise.resolve({
+    json: () => Promise.resolve(meals),
+  }); */
+  const rice = 'rice';
+  test('testa a rendericação do header no componente "drinksPage"', async () => {
+    /* jest.spyOn(global, 'fetch').mockImplementation(mockFetch); */
     renderWithRouterAndRedux(<DrinksPage />, {
       initialState: {},
       initialEntries: ['/drinks'],
@@ -16,7 +23,6 @@ describe('Testando componente Header', () => {
     const searchTopButton = screen.getByTestId('search-top-btn');
     const profileTopBtn = screen.getByTestId('profile-top-btn');
     const searchBTN = screen.getByTestId('exec-search-btn');
-    const ingredientBTN = screen.getByTestId('ingredient-search-radio');
     const NameBTN = screen.getByTestId('name-search-radio');
     const firsLetterBTN = screen.getByTestId('first-letter-search-radio');
     const setsearch = screen.getByTestId('set-search');
@@ -24,12 +30,15 @@ describe('Testando componente Header', () => {
     expect(searchTopButton).toBeInTheDocument();
     expect(searchBTN).toBeInTheDocument();
     expect(profileTopBtn).toBeInTheDocument();
-    expect(ingredientBTN).toBeInTheDocument();
+    /* expect(ingredientBTN).toBeInTheDocument(); */
     expect(NameBTN).toBeInTheDocument();
     expect(firsLetterBTN).toBeInTheDocument();
     userEvent.click(setsearch);
     const input = screen.getByTestId('search-input');
     expect(input).toBeInTheDocument();
+    userEvent.type(input, rice);
+
+    expect(input).toHaveValue(rice);
   });
   test('header test', () => {
     renderWithRouterAndRedux(<Header />, {
@@ -43,15 +52,20 @@ describe('Testando componente Header', () => {
     expect(NameBTN).toBeInTheDocument();
     expect(firsLetterBTN).toBeInTheDocument();
   });
-  test('meals page', () => {
-    renderWithRouterAndRedux(<MealsPage />, {
-      initialState: {},
-      initialEntries: ['/meals'],
-    });
-    expect(screen.getByTestId('Beef-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Breakfast-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Chicken-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Dessert-category-filter')).toBeInTheDocument();
-    expect(screen.getByTestId('Goat-category-filter')).toBeInTheDocument();
+  test('meals page', async () => {
+    /* jest.spyOn(global, 'fetch').mockImplementation(mockFetch); */
+    renderWithRouterAndRedux(<MealsPage />);
+    const butoSet = screen.getByTestId('set-search');
+    expect(butoSet).toBeInTheDocument();
+    expect(screen.getByTestId('profile-top-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('search-top-btn')).toBeInTheDocument();
+    expect(screen.getByTestId('ingredient-search-radio')).toBeInTheDocument();
+    userEvent.click(butoSet);
+
+    const input = screen.getByTestId('search-input');
+    expect(input).toBeInTheDocument();
+    userEvent.type(input, rice);
+
+    expect(input).toHaveValue(rice);
   });
 });
