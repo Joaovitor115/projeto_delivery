@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import { requiretName } from '../redux/actions/action';
+// import { requiretName } from '../redux/actions/action';
 import SearchBar from './SearchBar';
-
-function Header({ titlePage, iconProfile, iconSearch, requiret, name }) {
+// name, requiret
+function Header({ titlePage, iconProfile, iconSearch }) {
   const [visibleSearch, setVisibleSearch] = useState(false);
 
   const setSearch = () => {
     setVisibleSearch(!visibleSearch);
   };
 
-  const handChange = ({ target }) => {
-    requiret(target.value);
-  };
+  // const handChange = ({ target }) => {
+  //   requiret(target.value);
+  // };
 
   return (
     <section>
@@ -24,8 +24,6 @@ function Header({ titlePage, iconProfile, iconSearch, requiret, name }) {
         data-testid="search-input"
         type="text"
         name="name"
-        value={ name }
-        onChange={ handChange }
       />}
       <h1 data-testid="page-title">{ titlePage }</h1>
       {iconProfile && (
@@ -38,7 +36,7 @@ function Header({ titlePage, iconProfile, iconSearch, requiret, name }) {
         </Link>
       )}
       {iconSearch && (
-        <button type="button" onClick={ setSearch }>
+        <button data-testid="set-search" type="button" onClick={ setSearch }>
           <img data-testid="search-top-btn" src={ searchIcon } alt="Search Icon" />
         </button>
       )}
@@ -47,13 +45,13 @@ function Header({ titlePage, iconProfile, iconSearch, requiret, name }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  name: state.reducerFetch.name,
-});
-const mapDispatchToProps = (dispatch) => ({
-  requiret: (name) => dispatch(requiretName(name)),
-});
+// const mapStateToProps = (state) => ({
+//   name: state.reducerFetch.name,
+// });
+// const mapDispatchToProps = (dispatch) => ({
+//   requiret: (name) => dispatch(requiretName(name)),
+// });
 Header.propTypes = {
   requiredFetchMealsRecipe: func,
 }.isrequired;
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect()(Header);
