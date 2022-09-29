@@ -1,12 +1,14 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import App from '../App';
 import DrinksPage from '../pages/DrinksPage';
 import MealsPage from '../pages/MealsPage';
 import beefMeals from './helpers/beefMeals';
 import breakfastMeals from './helpers/breakfastMeals';
 import buttonsCategorieDrinks from './helpers/butonCategorieDrinks';
 import butonCategorieMeals from './helpers/butonCategorieMeals';
+import oneMeal from './helpers/oneMeal';
 /* import buttonsCategorieDrinksRecipes from './helpers/butonCategorieDrinksRecipes'; */
 import ordinaryDrinks from './helpers/ordinaryDrinks';
 import renderWithRouterAndRedux from './helpers/rendeWithRouterAndRedux';
@@ -27,13 +29,33 @@ describe('Testando componente ButtonsCategories', () => {
   const mockOrd = () => Promise.resolve({
     json: () => Promise.resolve(ordinaryDrinks),
   });
-  /* recipes drinks */
-  /* const mockDrinkRecipes = () => Promise.resolve({
-    json: () => Promise.resolve(buttonsCategorieDrinksRecipes),
+  const mockGoad = () => Promise.resolve({
+    json: () => Promise.resolve(oneMeal),
   });
-  const mockRecipe = () => Promise.resolve({
-    json: () => Promise.resolve(ordinaryDrinks),
-  }); */
+  const serch = 'search-input';
+  const exet = 'exec-search-btn';
+  test('Testado o botão Goat', async () => {
+    jest.spyOn(global, 'fetch').mockImplementation(mockGoad);
+    const { history } = renderWithRouterAndRedux(<App />);
+    history.push('/meals');
+    const butoSet = screen.getByTestId('set-search');
+    const nameRadio = screen.getByTestId('name-search-radio');
+    expect(nameRadio).toBeInTheDocument();
+    expect(butoSet).toBeInTheDocument();
+    userEvent.click(butoSet);
+    const input = screen.getByTestId(serch);
+    expect(input).toBeInTheDocument();
+    userEvent.type(input, 'Spicy Arrabiata Penne');
+
+    userEvent.click(nameRadio);
+
+    const exet2 = screen.getByTestId(exet);
+    userEvent.click(exet2);
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    expect(history.location.pathname).toEqual('/meals/52771');
+    global.fetch.mockClear();
+  });
   test('ButtonsCategories page Meals', async () => {
     jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
     renderWithRouterAndRedux(<MealsPage />);
