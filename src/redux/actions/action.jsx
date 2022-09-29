@@ -1,6 +1,6 @@
-export const INGREDIENT = 'INGREDIENT';
-export const NAME = 'NAME';
-export const FIRSTAPI = 'FIRSTAPI';
+/* export const INGREDIENT = 'INGREDIENT'; */
+/* export const NAME = 'NAME'; */
+/* export const FIRSTAPI = 'FIRSTAPI'; */
 export const RECIPES_DRINKS = 'RECIPES_DRINKS';
 export const RECIPES_MEALS = 'RECIPES_MEALS';
 export const NAMEINPUT = 'NAMEINPUT';

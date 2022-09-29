@@ -1,16 +1,10 @@
 import {
-  TYPE_BUTTON_CLICK,
-  FIRSTAPI,
-  HANDCHANGE,
-  INGREDIENT,
-  NAME,
-  NAMEINPUT,
-  RECIPES_DRINKS,
-  RECIPES_MEALS,
   CATEGORIES_DRINKS,
   CATEGORIES_MEALS,
-  CATEGORY_SELECTED,
-  TYPE_PAGE_SELECT,
+  CATEGORY_SELECTED, HANDCHANGE,
+  NAMEINPUT,
+  RECIPES_DRINKS,
+  RECIPES_MEALS, TYPE_BUTTON_CLICK, TYPE_PAGE_SELECT
 } from '../actions/action';
 
 const INICIAL_STATE = {
@@ -27,9 +21,9 @@ const INICIAL_STATE = {
 
 const reducerFetch = (state = INICIAL_STATE, action) => {
   switch (action.type) {
-  case INGREDIENT: return ({ ...state, ingredientes: action.payload });
-  case NAME: return ({ ...state, name: action.payload });
-  case FIRSTAPI: return ({ ...state, first: action.payload });
+  /* case INGREDIENT: return ({ ...state, ingredientes: action.payload }); */
+  /* case NAME: return ({ ...state, name: action.payload }); */
+  /* case FIRSTAPI: return ({ ...state, first: action.payload }); */
   case RECIPES_DRINKS: return ({ ...state, recipesDrinks: action.payload });
   case RECIPES_MEALS: return ({ ...state, recipesMeals: action.payload });
   case NAMEINPUT: return ({ ...state, name: action.payload });

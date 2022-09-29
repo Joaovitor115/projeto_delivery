@@ -1,12 +1,12 @@
+import { array } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import { array } from 'prop-types';
 import {
   categorySelected,
   fetchDrinksRecipes,
-  fetchMealsRecipes,
+  fetchMealsRecipes
 } from '../redux/actions/action';
-import { filterOfMeals, filterOfDrinks } from '../services/FiltersByCategory';
+import { filterOfDrinks, filterOfMeals } from '../services/FiltersByCategory';
 import { recipesDrinksAPI, recipesMealsAPI } from '../services/RecipesAPI';
 
 function ButtonsCategories({
@@ -28,7 +28,7 @@ function ButtonsCategories({
     } else if (pageSelected === 'drinks' && categorySel === categorie) {
       const recipes = await recipesDrinksAPI();
       setRecipesDrinks(recipes);
-    } else if (pageSelected === 'meals' && categorySel === categorie) {
+    } else /* (pageSelected === 'meals' && categorySel === categorie)  */{
       const recipes = await recipesMealsAPI();
       setRecipesMeals(recipes);
     }
@@ -38,7 +38,7 @@ function ButtonsCategories({
     if (pageSelected === 'drinks') {
       const recipes = await recipesDrinksAPI();
       setRecipesDrinks(recipes);
-    } else if (pageSelected === 'meals') {
+    } else /* (pageSelected === 'meals')  */{
       const recipes = await recipesMealsAPI();
       setRecipesMeals(recipes);
     }

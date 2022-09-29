@@ -1,11 +1,11 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import { func } from 'prop-types';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
+import { fetchDrinksRecipes, fetchMealsRecipes } from '../redux/actions/action';
 import { recipesDrinksAPI, recipesMealsAPI } from '../services/RecipesAPI';
-import { fetchMealsRecipes, fetchDrinksRecipes } from '../redux/actions/action';
 import './Footer.css';
 
 function Footer({ requiredFetchDrinksRecipe, requiredFetchMealssRecipe }) {
