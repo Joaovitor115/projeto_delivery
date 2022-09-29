@@ -81,6 +81,13 @@ describe('Testando componente Header', () => {
     const card = screen.getByTestId('0-recipe-card');
     expect(card).toBeInTheDocument();
 
+    const btnFooter = screen.getByTestId('meals-bottom-btn');
+    expect(btnFooter).toBeInTheDocument();
+    userEvent.click(btnFooter);
+
+    await waitFor(() => expect(global.fetch).toHaveBeenCalled());
+    expect(card).toBeInTheDocument();
+
     /* userEvent.type(input, rice); */
     expect(input).toHaveValue(rice);
     const NameBTN1 = screen.getByTestId(name);

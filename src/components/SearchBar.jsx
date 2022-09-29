@@ -9,16 +9,14 @@ class SearchBar extends Component {
   };
 
   handleChange = ({ target }) => {
-    const { id, name } = target;
-    if (name === 'filter') {
-      this.setState({
-        first: id,
-      }, () => {
-        const { first } = this.state;
-        const { dispatch } = this.props;
-        dispatch(handCh(first));
-      });
-    }
+    const { id } = target;
+    this.setState({
+      first: id,
+    }, () => {
+      const { first } = this.state;
+      const { dispatch } = this.props;
+      dispatch(handCh(first));
+    });
   };
 
   render() {
