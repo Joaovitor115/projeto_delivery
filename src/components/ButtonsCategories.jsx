@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   categorySelected,
   fetchDrinksRecipes,
-  fetchMealsRecipes
+  fetchMealsRecipes,
 } from '../redux/actions/action';
 import { filterOfDrinks, filterOfMeals } from '../services/FiltersByCategory';
 import { recipesDrinksAPI, recipesMealsAPI } from '../services/RecipesAPI';
