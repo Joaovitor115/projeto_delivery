@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { object } from 'prop-types';
 import './cssComponents/RecipesDetail.css';
+import CardRecipe from './CardRecipe';
+import { typePageSelect } from '../redux/actions/action';
 
-function RecipesDetails({ recipe }) {
+function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
   const [dataRecipes, setDataRecipes] = useState({
     image: '',
     title: '',
@@ -13,6 +16,42 @@ function RecipesDetails({ recipe }) {
     alcoholic: '',
     amounts: [],
   });
+  const [recommendationDrinks, setDrinks] = useState([]);
+  const [recommendationMeals, setMeals] = useState([]);
+
+  const setRecommendationDrinks = () => {
+    setPageSelect('drinks');
+    const list = recommendationDrinks.map((drink, i) => {
+      const { idDrink: id, strDrinkThumb, strDrink } = drink;
+      return (
+        <CardRecipe
+          key={ i }
+          id={ id }
+          indice={ i }
+          image={ strDrinkThumb }
+          name={ strDrink }
+        />
+      );
+    });
+    return list;
+  };
+
+  const setRecommendationMeals = () => {
+    setPageSelect('meals');
+    const list = recommendationMeals.map((meal, i) => {
+      const { idMeal: id, strMealThumb, strMeal } = meal;
+      return (
+        <CardRecipe
+          key={ i }
+          id={ id }
+          indice={ i }
+          image={ strMealThumb }
+          name={ strMeal }
+        />
+      );
+    });
+    return list;
+  };
 
   const filterIngredientsMeals = (array) => {
     const ingredientsArray = [];
@@ -108,16 +147,17 @@ function RecipesDetails({ recipe }) {
       const currencyRecipe = await recipe;
       const meals = await currencyRecipe?.meals?.[0];
       const drinks = await currencyRecipe?.drinks?.[0];
+      const recommendationD = await sixDrinks;
+      const recommendationM = await sixMeals;
       handlerDrinks(drinks);
       handlerMeals(meals);
+      setMeals(recommendationM);
+      setDrinks(recommendationD);
     })();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe]);
+  }, [recipe, sixDrinks, sixMeals]);
 
   return (
     <div>
-      {/* {console.log(dataRecipes.ingredients)} */}
-      {console.log(recipe)}
       {dataRecipes.ingredients && (
         <div className="container-details">
           <img
@@ -166,13 +206,22 @@ function RecipesDetails({ recipe }) {
               allowFullScreen
             />
           )}
+          <div>
+            { recommendationDrinks && setRecommendationDrinks() }
+            {recommendationMeals && setRecommendationMeals() }
+          </div>
         </div>
       )}
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  setPageSelect: (page) => dispatch(typePageSelect(page)),
+});
+
 RecipesDetails.propTypes = {
   recipe: object,
 }.isrequired;
 
-export default RecipesDetails;
+export default connect(null, mapDispatchToProps)(RecipesDetails);
