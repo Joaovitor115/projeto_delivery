@@ -1,0 +1,18 @@
+.image-recipes {
+  width: 200px;
+  height: 200px;
+}
+
+.container-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap:wrap;
+  align-items: center;
+}
+
+.container-ingredients {
+  display: flex;
+  flex-direction: column;
+  flex-wrap:wrap;
+}
