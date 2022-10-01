@@ -1,0 +1,6 @@
+input:focus,
+input:active {
+	position: absolute;
+	top: 10px;
+	outline: none;
+}
