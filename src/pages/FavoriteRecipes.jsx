@@ -4,7 +4,6 @@ import shareicon from '../images/shareIcon.svg';
 import { getFavoriteRecipes,
   removeFavoriteRecipes } from '../services/getFavoriteRecipes';
 import CardRecipes from '../components/CardRecipe';
-import './FavoriteRecipes.css';
 
 function FavoriteRecipes() {
   return (
