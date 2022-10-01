@@ -1,3 +1,7 @@
+body {
+  background-color: #0fa36b;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;
@@ -5,9 +9,10 @@
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  height: 100vh;
+  height: 90%;
   justify-content: center;
-  width: 100%;
+  text-overflow: clip;
+  width: 90%;
 }
 
 .rocksGlass {
@@ -72,6 +77,10 @@
   width: 30px;
 }
 
+.image-recipes {
+  width: 250px;
+}
+
 .cards {
   display: flex;
   flex-flow: row wrap;
@@ -79,4 +88,49 @@
   max-height: 700px;
   max-width: 400px;
   text-align: center;
+}
+
+.card-recommendation {
+  background-color: red;
+  margin: 10px 20px;
+  scroll-snap-align: start;
+  text-align: center;
+  width: 140px;
+}
+
+.recommendation-img {
+  height: 100px;
+  width: 100px;
+}
+
+.container-recommendation {
+  display: flex;
+  margin-bottom: 40px;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  width: 250px;
+}
+
+.container-details {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-ingredients {
+  display: flex;
+}
+
+.instruction {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  width: 80%;
+}
+
+.button-start-recipe {
+  bottom: 0;
+  position: fixed;
 }

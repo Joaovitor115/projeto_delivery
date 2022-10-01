@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { object } from 'prop-types';
-import './cssComponents/RecipesDetail.css';
-import CardRecipe from './CardRecipe';
+import { useHistory } from 'react-router-dom';
 import { typePageSelect } from '../redux/actions/action';
+import RecommendationRecipes from './RecommendationRecipes';
+import RecipeListDetails from './RecipeListDetails';
+import { getDoneRecipesLocalStorage, getInprogressRecipesLocalStorage }
+  from '../localStorageFunctions/functionsGetLocalStorage';
 
 function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
+  const history = useHistory();
   const [dataRecipes, setDataRecipes] = useState({
+    type: '',
+    id: '',
     image: '',
     title: '',
     instructions: '',
@@ -18,13 +24,35 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
   });
   const [recommendationDrinks, setDrinks] = useState([]);
   const [recommendationMeals, setMeals] = useState([]);
+  const [doneRecipes, setDoneRecipes] = useState([]);
+  const [inProgress, setInProgress] = useState({ drinks: {}, meals: {} });
+
+  const verificationDone = () => {
+    if (doneRecipes) {
+      const verification = doneRecipes.find((recip) => recip.id === dataRecipes.id
+        && recip.name === dataRecipes.title);
+      return verification;
+    }
+    return undefined;
+  };
+
+  const verificationProgress = () => {
+    if (dataRecipes.type === 'meals') {
+      const test = inProgress?.meals?.[dataRecipes.id];
+      return test;
+    }
+    if (dataRecipes.type === 'drinks') {
+      const test = inProgress?.drinks?.[dataRecipes.id];
+      return test;
+    }
+  };
 
   const setRecommendationDrinks = () => {
     setPageSelect('drinks');
     const list = recommendationDrinks.map((drink, i) => {
       const { idDrink: id, strDrinkThumb, strDrink } = drink;
       return (
-        <CardRecipe
+        <RecommendationRecipes
           key={ i }
           id={ id }
           indice={ i }
@@ -41,7 +69,7 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
     const list = recommendationMeals.map((meal, i) => {
       const { idMeal: id, strMealThumb, strMeal } = meal;
       return (
-        <CardRecipe
+        <RecommendationRecipes
           key={ i }
           id={ id }
           indice={ i }
@@ -117,19 +145,27 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
   const handlerMeals = (mealRecipe) => {
     if (mealRecipe) {
       setDataRecipes({
+        nationality: mealRecipe.strArea,
+        type: 'meals',
+        id: mealRecipe.idMeal,
         image: mealRecipe.strMealThumb,
         instructions: mealRecipe.strInstructions,
         title: mealRecipe.strMeal,
         categorie: mealRecipe.strCategory,
         ingredients: filterIngredientsMeals(Object.entries(mealRecipe)),
         videoUrl: mealRecipe.strYoutube.split('watch?v='),
+        alcoholic: '',
         amounts: filterAmontMeals(Object.entries(mealRecipe)),
+        linkRecipe: mealRecipe.strSource,
       });
     }
   };
   const handlerDrinks = (drinkRecipe) => {
     if (drinkRecipe) {
       setDataRecipes({
+        nationality: '',
+        type: 'drinks',
+        id: drinkRecipe.idDrink,
         image: drinkRecipe.strDrinkThumb,
         title: drinkRecipe.strDrink,
         instructions: drinkRecipe.strInstructions,
@@ -138,6 +174,7 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
         videoUrl: drinkRecipe.strYoutube,
         alcoholic: drinkRecipe.strAlcoholic,
         amounts: filterAmountDrinks(drinkRecipe),
+        linkRecipe: drinkRecipe.strSource,
       });
     }
   };
@@ -153,63 +190,34 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
       handlerMeals(meals);
       setMeals(recommendationM);
       setDrinks(recommendationD);
+      setDoneRecipes(getDoneRecipesLocalStorage());
+      setInProgress(getInprogressRecipesLocalStorage());
     })();
   }, [recipe, sixDrinks, sixMeals]);
 
   return (
     <div>
       {dataRecipes.ingredients && (
-        <div className="container-details">
-          <img
-            className="image-recipes"
-            data-testid="recipe-photo"
-            src={ dataRecipes.image }
-            alt={ dataRecipes.title }
+        <div>
+          <RecipeListDetails
+            setRecommendationDrinks={ setRecommendationDrinks }
+            setRecommendationMeals={ setRecommendationMeals }
+            dataRecipes={ dataRecipes }
+            recommendationDrinks={ recommendationDrinks }
+            recommendationMeals={ recommendationMeals }
+            doneRecipes={ doneRecipes }
           />
-          <h1 data-testid="recipe-title">{dataRecipes.title}</h1>
-          <h3>Categoria</h3>
-          <p data-testid="recipe-category">{dataRecipes.categorie}</p>
-          {dataRecipes.alcoholic && (
-            <p data-testid="recipe-category">{dataRecipes.alcoholic}</p>
+          { !verificationDone() && (
+            <button
+              className="button-start-recipe"
+              type="button"
+              data-testid="start-recipe-btn"
+              onClick={ () => history
+                .push(`/${dataRecipes.type}/${dataRecipes.id}/in-progress`) }
+            >
+              {!verificationProgress() ? 'Start Recipe' : 'Continue Recipe' }
+            </button>
           )}
-          <h3>Ingredientes</h3>
-          <div className="container-ingredients">
-            { dataRecipes.ingredients.map((ingredient, index) => (
-              <p
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {ingredient}
-              </p>
-            ))}
-            {dataRecipes.amounts && dataRecipes.amounts.map((data, index) => (
-              <p
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ index }
-              >
-                {data}
-              </p>
-            ))}
-          </div>
-          <h4>Instruções:</h4>
-          <p data-testid="instructions">{dataRecipes.instructions}</p>
-          {dataRecipes.videoUrl && (
-            <iframe
-              data-testid="video"
-              width="560"
-              height="315"
-              src={ `${dataRecipes.videoUrl[0]}/embed/${dataRecipes.videoUrl[1]}` }
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay;
-              clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          )}
-          <div>
-            { recommendationDrinks && setRecommendationDrinks() }
-            {recommendationMeals && setRecommendationMeals() }
-          </div>
         </div>
       )}
     </div>
