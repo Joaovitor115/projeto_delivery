@@ -27,18 +27,18 @@ export default class Profile extends Component {
         <button
           data-testid="profile-done-btn"
           type="button"
-          onClick={
-            history.push('/done-recipes')
-          }
+          onClick={ () => {
+            history.push('/done-recipes');
+          } }
         >
           Done Recipes
         </button>
         <button
           data-testid="profile-favorite-btn"
           type="button"
-          onClick={
-            history.push('/favorite-recipes')
-          }
+          onClick={ () => {
+            history.push('/favorite-recipes');
+          } }
         >
           Favorite Recipes
         </button>

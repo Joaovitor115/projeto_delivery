@@ -21,8 +21,20 @@ describe('Testand details Drinks', () => {
       .mockReturnValueOnce(mockFetch(meals));
     global.fetch = mockMultFetch;
   });
+  const mockFavorites = 'favoriteRecipes';
+  const listFavorites = [{
+    id: '15997',
+    /* nationality: 'Turkish', */
+    name: 'GG',
+    image: 'https://www.thecocktaildb.com/images/media/drink/vyxwut1468875960.jpg',
+  }];
+  const setLocalStorage = (id, data) => {
+    window.localStorage.setItem(id, JSON.stringify(data));
+  };
+  setLocalStorage(mockFavorites, listFavorites);
   test('Drinks details', async () => {
     await flushPromises();
+    expect(localStorage.getItem(mockFavorites)).toEqual(JSON.stringify(listFavorites));
     const { history } = renderWithRouterAndRedux(<App />);
     history.push('/drinks/15997');
 
@@ -33,10 +45,11 @@ describe('Testand details Drinks', () => {
     expect(photo).toBeInTheDocument();
     const recomendation = screen.getByTestId('0-recommendation-card');
     expect(recomendation).toBeInTheDocument();
-    const start = screen.getByTestId('start-recipe-btn');
-    expect(start).toBeInTheDocument();
-    userEvent.click(start);
-    expect(history.location.pathname).toEqual('/drinks/15997/in-progress');
+    const btnFavorite = screen.getByTestId('favorite-btn');
+    expect(btnFavorite).toBeInTheDocument();
+    userEvent.click(btnFavorite);
+    setLocalStorage(mockFavorites, listFavorites);
+    expect(localStorage.getItem(mockFavorites)).toEqual(JSON.stringify(listFavorites));
 
     global.fetch.mockClear();
   });
