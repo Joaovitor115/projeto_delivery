@@ -1,11 +1,11 @@
-import { func } from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { func } from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import {
-  getFavoriteRecipesLocalStorage
+  getFavoriteRecipesLocalStorage,
 } from '../localStorageFunctions/functionsGetLocalStorage';
 import {
-  setFavoriteRecipesLocalStorage
+  setFavoriteRecipesLocalStorage,
 } from '../localStorageFunctions/functionsSetLocalStorage';
 
 const copy = require('clipboard-copy');
