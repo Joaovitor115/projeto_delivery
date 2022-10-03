@@ -17,10 +17,7 @@ function FavoriteRecipes() {
   };
   return (
     <div>
-      {console.log(getFavoriteRecipes())}
-      <h1>
-        <Header titlePage="Favorite Recipes" iconProfile />
-      </h1>
+      <Header titlePage="Favorite Recipes" iconProfile />
       <button
         type="button"
         data-testid="filter-by-all-btn"
@@ -39,7 +36,7 @@ function FavoriteRecipes() {
       >
         Drinks
       </button>
-      {getFavoriteRecipes().map((element, index) => (
+      {getFavoriteRecipes() && getFavoriteRecipes().map((element, index) => (
         <div key={ index }>
           <br />
           <Link to={ `${element.type}s/${element.id}` }>

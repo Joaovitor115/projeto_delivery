@@ -11,7 +11,10 @@ export default class Profile extends Component {
   render() {
     function get() {
       const item = JSON.parse(localStorage.getItem('user'));
-      return item.email;
+      if
+      (item) {
+        return item.email;
+      }
     }
     function clean() {
       localStorage.clear();
