@@ -1,98 +1,95 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import heartLogo from '../images/blackHeartIcon.svg';
-import shareicon from '../images/shareIcon.svg';
-import { getFavoriteRecipes,
-  removeFavoriteRecipes } from '../services/getFavoriteRecipes';
+import React, { useEffect, useState } from 'react';
+import { getFavoriteRecipes } from '../services/getFavoriteRecipes';
 import Header from '../components/Header';
+import FavoriteCard from '../components/FavoriteCards';
 import '../App.css';
 
-const copy = require('clipboard-copy');
-
 function FavoriteRecipes() {
-  const [confirmCopy, setConfirmCopy] = useState(false);
-  const clickedCopy = (type, id) => {
-    setConfirmCopy(true);
-    copy(`http://localhost:3000/${type}s/${id}`);
+  const [currentFavorites, setCurrentFavorites] = useState([]);
+  const [typesFilters, setTypesFilters] = useState({
+    all: true,
+    meals: false,
+    drinks: false,
+  });
+
+  useEffect(() => {
+    const favorites = getFavoriteRecipes();
+    if (favorites) setCurrentFavorites(favorites);
+  }, []);
+
+  const test = () => {
+    if (typesFilters.all) {
+      return (
+        <div>
+          {currentFavorites && currentFavorites.map((element, index) => (
+            <FavoriteCard
+              key={ index }
+              recipe={ element }
+              index={ index }
+            />
+          ))}
+        </div>
+      );
+    }
+
+    if (typesFilters.meals) {
+      const justFood = currentFavorites.filter((food) => food.type === 'meal');
+      return (
+        <div>
+          {justFood && justFood.map((food, index) => (
+            <FavoriteCard
+              key={ index }
+              recipe={ food }
+              index={ index }
+            />
+          ))}
+        </div>
+      );
+    }
+
+    if (typesFilters.drinks) {
+      const justdrink = currentFavorites.filter((food) => food.type === 'drink');
+      return (
+        <div>
+          {justdrink && justdrink.map((drink, index) => (
+            <FavoriteCard
+              key={ index }
+              recipe={ drink }
+              index={ index }
+            />
+          ))}
+        </div>
+      );
+    }
   };
+
   return (
     <div>
       <Header titlePage="Favorite Recipes" iconProfile />
       <button
+        onClick={ () => setTypesFilters({ all: true, drinks: false, meals: false }) }
         type="button"
         data-testid="filter-by-all-btn"
       >
         All
       </button>
       <button
+        onClick={ () => setTypesFilters({ all: false, drinks: false, meals: true }) }
         data-testid="filter-by-meal-btn"
         type="button"
       >
         Meals
       </button>
       <button
+        onClick={ () => setTypesFilters({ all: false, drinks: true, meals: false }) }
         type="button"
         data-testid="filter-by-drink-btn"
       >
         Drinks
       </button>
-      {getFavoriteRecipes() && getFavoriteRecipes().map((element, index) => (
-        <div key={ index }>
-          <br />
-          <Link to={ `${element.type}s/${element.id}` }>
-            <div
-              data-testid={ `${index}-horizontal-name` }
-            >
-              {element.name}
-            </div>
-            <img
-              src={ element.image }
-              data-testid={ `${index}-horizontal-image` }
-              alt=""
-              className="recipe-image"
-            />
-          </Link>
-          <div />
-          {
-            element.type === 'drink'
-              ? (
-                <div data-testid={ `${index}-horizontal-top-text` }>
-                  {element.alcoholicOrNot}
-                </div>) : null
-          }
-
-          <div
-            data-testid={ `${index}-horizontal-top-text` }
-          >
-            {`${element.nationality} - ${element.category}`}
-          </div>
-          <input
-            src={ shareicon }
-            type="image"
-            alt="shareIcon"
-            id="recipe-image"
-            data-testid={ `${index}-horizontal-share-btn` }
-            onClick={ () => {
-              clickedCopy(element.type, element.id);
-            } }
-          />
-          {confirmCopy && <p>Link copied!</p>}
-          <div>
-
-            <input
-              type="image"
-              src={ heartLogo }
-              alt="is it favorited?"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              onClick={ () => {
-                removeFavoriteRecipes(element.id);
-                window.location.reload();
-              } }
-            />
-          </div>
-
-        </div>
-      ))}
+      <div>
+        { currentFavorites && test() }
+      </div>
     </div>
   );
 }
