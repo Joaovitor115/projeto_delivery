@@ -139,6 +139,7 @@ function DrinksIngredient({
           className={ addClassName(revenue, nameFinish) }
         >
           <input
+            data-testid={ `${index}-step` }
             type="checkbox"
             onChange={ getFinishStep }
             name={ revenue }
