@@ -1,0 +1,14 @@
+.container-revenue {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.phrase-content {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-bottom: 10px;
+}
+
+.finish {
+  text-decoration: line-through;
+}
