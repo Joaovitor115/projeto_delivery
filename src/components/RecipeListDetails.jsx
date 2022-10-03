@@ -7,6 +7,9 @@ import {
 import {
   setFavoriteRecipesLocalStorage,
 } from '../localStorageFunctions/functionsSetLocalStorage';
+import iconeOff from '../images/whiteHeartIcon.svg';
+import iconeOn from '../images/blackHeartIcon.svg';
+import iconShare from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
@@ -20,30 +23,50 @@ function RecipeListDetails({
   const history = useHistory();
   const [confirmCopy, setConfirmCopy] = useState(false);
   const [favorites, setFvorites] = useState([]);
+  const [favoritClicked, setFavoritClicked] = useState(false);
 
   useEffect(() => {
     const requiredFavorites = () => {
       const favorit = getFavoriteRecipesLocalStorage();
       setFvorites(favorit);
+      const verificationFavorit = favorites ? favorites
+        .find((fav) => fav.id === dataRecipes.id) : false;
+      setFavoritClicked(verificationFavorit);
     };
     requiredFavorites();
-  }, []);
+  }, [dataRecipes]);
 
   const setFavotires = () => {
+    setFavoritClicked(!favoritClicked);
     const {
       id, type, nationality, categorie, alcoholic: alcoholicOrNot, title: name, image,
     } = dataRecipes;
     const typ = type === 'meals' ? 'meal' : 'drink';
     if (!favorites) {
       const data = [
-        { id, type: typ, nationality, category: categorie, alcoholicOrNot, name, image },
+        {
+          id,
+          type: typ,
+          nationality,
+          category: categorie,
+          alcoholicOrNot,
+          name,
+          image,
+        },
       ];
       setFavoriteRecipesLocalStorage(data);
-    } else {
-      const data = [...favorites,
-        { id, type: typ, nationality, category: categorie, alcoholicOrNot, name, image },
-      ];
-      setFavoriteRecipesLocalStorage(data);
+    } else if (favorites) {
+      if (favoritClicked) {
+        const removeFav = favorites.filter((fav) => fav.id !== dataRecipes.id);
+        setFavoriteRecipesLocalStorage(removeFav);
+      } else {
+        const data = [...favorites,
+          {
+            id, type: typ, nationality, category: categorie, alcoholicOrNot, name, image,
+          },
+        ];
+        setFavoriteRecipesLocalStorage(data);
+      }
     }
   };
 
@@ -54,19 +77,28 @@ function RecipeListDetails({
 
   return (
     <div className="container-details">
-      <button
-        onClick={ setFavotires }
-        data-testid="favorite-btn"
-        type="button"
-      >
-        favoritar
-      </button>
+      <label htmlFor="favorit">
+        <input
+          className="check-image"
+          type="checkbox"
+          name="favorit"
+          id="favorit"
+          onClick={ setFavotires }
+          checked={ favoritClicked }
+        />
+        <img
+          data-testid="favorite-btn"
+          src={ favoritClicked ? iconeOn : iconeOff }
+          alt="icone-favorit"
+        />
+      </label>
+
       <button
         onClick={ clickedCopy }
         data-testid="share-btn"
         type="button"
       >
-        compartilhar
+        <img src={ iconShare } alt="icone-compartilhar" />
       </button>
       {confirmCopy && <p>Link copied!</p>}
       <img
