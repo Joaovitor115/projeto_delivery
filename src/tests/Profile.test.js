@@ -79,7 +79,7 @@ describe('Testing Profiles', () => {
 
     userEvent.click(btnProfile1);
     expect(history.location.pathname).toEqual('/favorite-recipes');
-    const imgFavorite = screen.getByTestId('0-card-img');
+    const imgFavorite = screen.getByTestId('page-title');
     expect(imgFavorite).toBeInTheDocument();
     const corba = screen.getByText('Corba');
     expect(corba).toBeInTheDocument();
