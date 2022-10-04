@@ -4,28 +4,29 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 export default class Profile extends Component {
-  state = {
+  state = { email: '' };
 
+  componentDidMount() {
+    const email = JSON.parse(localStorage.getItem('user'));
+    this.setState({ email });
+  }
+
+  clearAndRedirect = () => {
+    const { history } = this.props;
+    localStorage.clear();
+    history.push('/');
   };
 
   render() {
-    function get() {
-      const item = JSON.parse(localStorage.getItem('user'));
-      if
-      (item) {
-        return item.email;
-      }
-    }
-    function clean() {
-      localStorage.clear();
-    }
+    const { email } = this.state;
     const { history } = this.props;
+
     return (
       <div>
         <Header titlePage="Profile" iconProfile />
         <Footer />
         <div data-testid="profile-email">
-          {get()}
+          <p>{ email && email.email }</p>
         </div>
         <button
           data-testid="profile-done-btn"
@@ -48,10 +49,7 @@ export default class Profile extends Component {
         <button
           data-testid="profile-logout-btn"
           type="button"
-          onClick={ () => {
-            clean();
-            history.push('/');
-          } }
+          onClick={ this.clearAndRedirect }
         >
           Logout
         </button>

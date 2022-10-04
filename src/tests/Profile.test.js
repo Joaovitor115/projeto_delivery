@@ -1,9 +1,9 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
+import renderWithRouterAndRedux from './helpers/rendeWithRouterAndRedux';
 import App from '../App';
 import meals from './helpers/meals';
-import renderWithRouterAndRedux from './helpers/rendeWithRouterAndRedux';
 
 const mockFetch = () => Promise.resolve({
   json: () => Promise.resolve(meals),
@@ -12,10 +12,9 @@ const flushPromises = () => new Promise((r) => { setTimeout(r); });
 const setLocalStorage = (id, data) => {
   window.localStorage.setItem(id, JSON.stringify(data));
 };
-
 describe('Testing Profiles', () => {
   const mockId = 'user';
-  const mockJson = { data: 'reinaldoper83@gamail.com' };
+  const mockJson = { email: 'reinaldoper83@gamail.com' };
   setLocalStorage(mockId, mockJson);
   const mockFavorites = 'favoriteRecipes';
   const listFavorites = [{
@@ -36,12 +35,10 @@ describe('Testing Profiles', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     history.push('/meals');
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
-
     const card = screen.getByTestId(buton3);
     expect(card).toBeInTheDocument();
     userEvent.click(card);
     expect(history.location.pathname).toEqual('/profile');
-
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     const btn1 = screen.getByTestId(buton);
     expect(btn1).toBeInTheDocument();
@@ -49,11 +46,15 @@ describe('Testing Profiles', () => {
     expect(btn2).toBeInTheDocument();
     const btn3 = screen.getByTestId(buton2);
     expect(btn3).toBeInTheDocument();
-
+    const mail = screen.getByTestId('profile-email');
+    expect(mail).toBeInTheDocument();
+    setLocalStorage(mockId, mockJson);
+    expect(localStorage.getItem(mockId)).toEqual(JSON.stringify(mockJson));
+    const nomeEmail = screen.getByText('reinaldoper83@gamail.com');
+    expect(nomeEmail).toBeInTheDocument();
     userEvent.click(btn1);
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     expect(history.location.pathname).toEqual('/done-recipes');
-
     global.fetch.mockClear();
   });
   test('Favorites list and redirect page de favorities.', async () => {
@@ -63,12 +64,10 @@ describe('Testing Profiles', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     history.push('/meals');
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
-
     const card = screen.getByTestId('profile-top-btn');
     expect(card).toBeInTheDocument();
     userEvent.click(card);
     expect(history.location.pathname).toEqual('/profile');
-
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     const btnDone1 = screen.getByTestId(buton);
     expect(btnDone1).toBeInTheDocument();
@@ -76,10 +75,9 @@ describe('Testing Profiles', () => {
     expect(btnProfile1).toBeInTheDocument();
     const btnLogout1 = screen.getByTestId(buton2);
     expect(btnLogout1).toBeInTheDocument();
-
     userEvent.click(btnProfile1);
     expect(history.location.pathname).toEqual('/favorite-recipes');
-    const imgFavorite = screen.getByTestId('0-card-img');
+    const imgFavorite = screen.getByTestId('page-title');
     expect(imgFavorite).toBeInTheDocument();
     const corba = screen.getByText('Corba');
     expect(corba).toBeInTheDocument();
@@ -91,12 +89,10 @@ describe('Testing Profiles', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     history.push('/meals');
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
-
     const card = screen.getByTestId(buton3);
     expect(card).toBeInTheDocument();
     userEvent.click(card);
     expect(history.location.pathname).toEqual('/profile');
-
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     const btnDone = screen.getByTestId('profile-done-btn');
     expect(btnDone).toBeInTheDocument();
@@ -104,7 +100,6 @@ describe('Testing Profiles', () => {
     expect(btnProfile).toBeInTheDocument();
     const btnLogout = screen.getByTestId('profile-logout-btn');
     expect(btnLogout).toBeInTheDocument();
-
     userEvent.click(btnLogout);
     await waitFor(() => expect(global.fetch).toHaveBeenCalled());
     window.localStorage.clear();
