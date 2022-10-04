@@ -157,6 +157,7 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
         alcoholic: '',
         amounts: filterAmontMeals(Object.entries(mealRecipe)),
         linkRecipe: mealRecipe.strSource,
+        tags: mealRecipe.strTags?.split(',') ?? '',
       });
     }
   };
@@ -175,6 +176,7 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
         alcoholic: drinkRecipe.strAlcoholic,
         amounts: filterAmountDrinks(drinkRecipe),
         linkRecipe: drinkRecipe.strSource,
+        tags: '',
       });
     }
   };

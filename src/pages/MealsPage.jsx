@@ -53,7 +53,7 @@ function MealsRecipes({
   };
   return (
     <div>
-      <Header titlePage="Meals" iconProfile iconSearch />
+      <Header search titlePage="Meals" iconProfile iconSearch />
       <ButtonsCategories categories={ mealsCategories } />
       <button
         type="button"

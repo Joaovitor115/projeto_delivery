@@ -7,9 +7,9 @@ import searchIcon from '../images/searchIcon.svg';
 import { requiretName } from '../redux/actions/action';
 import SearchBar from './SearchBar';
 
-function Header({ titlePage, iconProfile, iconSearch, name, requiret }) {
+function Header({ search, titlePage, iconProfile, iconSearch, name, requiret }) {
   const [visibleSearch, setVisibleSearch] = useState(false);
-
+  console.log(search, iconProfile);
   const setSearch = () => {
     setVisibleSearch(!visibleSearch);
   };
@@ -41,7 +41,7 @@ function Header({ titlePage, iconProfile, iconSearch, name, requiret }) {
           <img data-testid="search-top-btn" src={ searchIcon } alt="Search Icon" />
         </button>
       )}
-      <SearchBar />
+      {search && <SearchBar />}
     </section>
   );
 }

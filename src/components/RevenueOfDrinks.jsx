@@ -3,21 +3,63 @@ import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import DrinksIngredient from './DrinksIngredient';
 import './cssComponents/RecipesDetail.css';
+import {
+  getDoneRecipesLocalStorage,
+} from '../localStorageFunctions/functionsGetLocalStorage';
+import {
+  setDoneRecipesLocalStorage,
+} from '../localStorageFunctions/functionsSetLocalStorage';
 
 function RevenueOfDrinks({ drinks }) {
   const [sizeOfRevenue, setSizeOfRevenue] = useState(0);
   const [sizeOfFinishSteps, setSizeOfFinishSteps] = useState(0);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [doneRecipes, setDoneRecipes] = useState([]);
   const { push } = useHistory();
 
-  const handleClick = () => {
-    push('/done-recipes');
+  const digit2 = (number) => {
+    const MAGIC = 10;
+    if (number < MAGIC) return `0${number}`;
+    return number;
+  };
+
+  const converterDate = () => {
+    const d = new Date();
+    const day = `${digit2(d.getDate())}/${digit2(d.getMonth())}/${d.getFullYear()}`;
+    return (day);
+  };
+
+  const handlerDrinks = (drinksRecipe) => {
+    const newRecipe = ({
+      id: drinksRecipe.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: drinksRecipe.strCategory,
+      alcoholicOrNot: drinksRecipe.strAlcoholic,
+      name: drinksRecipe.strDrink,
+      image: drinksRecipe.strDrinkThumb,
+      doneDate: converterDate(),
+      tags: drinksRecipe.strTags?.split(',') ?? '',
+    });
+    return newRecipe;
   };
 
   useEffect(() => {
     const verifyIsDisabled = sizeOfRevenue === sizeOfFinishSteps;
     setIsDisabled(verifyIsDisabled);
+    const allDoneRecipes = getDoneRecipesLocalStorage();
+    setDoneRecipes(allDoneRecipes);
   }, [sizeOfRevenue, sizeOfFinishSteps, isDisabled]);
+
+  const handleClick = () => {
+    const newObjectDrink = { ...handlerDrinks(drinks[0]) };
+    if (!doneRecipes) {
+      setDoneRecipesLocalStorage([newObjectDrink]);
+    } else {
+      setDoneRecipesLocalStorage([...doneRecipes, newObjectDrink]);
+    }
+    push('/done-recipes');
+  };
 
   return (
     <div>
