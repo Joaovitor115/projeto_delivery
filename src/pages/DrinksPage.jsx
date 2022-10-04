@@ -53,7 +53,7 @@ function DrinkRecipes({
   };
   return (
     <section>
-      <Header titlePage="Drinks" iconProfile iconSearch />
+      <Header search titlePage="Drinks" iconProfile iconSearch />
       {console.log(drinksCategories)}
       {drinksCategories.length > 0 && (
         <ButtonsCategories categories={ drinksCategories } />

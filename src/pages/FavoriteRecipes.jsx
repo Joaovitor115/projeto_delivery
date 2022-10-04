@@ -17,7 +17,7 @@ function FavoriteRecipes() {
     if (favorites) setCurrentFavorites(favorites);
   }, []);
 
-  const test = () => {
+  const filterType = () => {
     if (typesFilters.all) {
       return (
         <div>
@@ -48,7 +48,7 @@ function FavoriteRecipes() {
     }
 
     if (typesFilters.drinks) {
-      const justdrink = currentFavorites.filter((food) => food.type === 'drink');
+      const justdrink = currentFavorites.filter((drink) => drink.type === 'drink');
       return (
         <div>
           {justdrink && justdrink.map((drink, index) => (
@@ -88,7 +88,7 @@ function FavoriteRecipes() {
         Drinks
       </button>
       <div>
-        { currentFavorites && test() }
+        { currentFavorites && filterType() }
       </div>
     </div>
   );
