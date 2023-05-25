@@ -26,11 +26,12 @@ export default class Profile extends Component {
         <Header titlePage="Profile" iconProfile />
         <Footer />
         <div data-testid="profile-email">
-          <p>{ email && email.email }</p>
+          <h3>{ email && email.email }</h3>
         </div>
         <button
           data-testid="profile-done-btn"
           type="button"
+          className="button"
           onClick={ () => {
             history.push('/done-recipes');
           } }
@@ -40,6 +41,7 @@ export default class Profile extends Component {
         <button
           data-testid="profile-favorite-btn"
           type="button"
+          className="button"
           onClick={ () => {
             history.push('/favorite-recipes');
           } }
@@ -49,6 +51,7 @@ export default class Profile extends Component {
         <button
           data-testid="profile-logout-btn"
           type="button"
+          className="button"
           onClick={ this.clearAndRedirect }
         >
           Logout

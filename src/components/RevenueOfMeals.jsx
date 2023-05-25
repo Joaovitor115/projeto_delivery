@@ -9,6 +9,7 @@ import {
 import {
   setDoneRecipesLocalStorage,
 } from '../localStorageFunctions/functionsSetLocalStorage';
+import '../App.css';
 
 function RevenueOfMeals({ meals }) {
   const [sizeOfRevenue, setSizeOfRevenue] = useState(0);
@@ -84,16 +85,24 @@ function RevenueOfMeals({ meals }) {
                 setSizeOfRevenue={ setSizeOfRevenue }
                 setSizeOfFinishSteps={ setSizeOfFinishSteps }
               />
-              <p data-testid="instructions">
+              <h3 data-testid="instructions">
                 Instruções:
                 {' '}
                 {meals[0].strInstructions}
-              </p>
+              </h3>
             </div>
-            <button type="button" data-testid="share-btn">
+            <button
+              type="button"
+              data-testid="share-btn"
+              className="button"
+            >
               Compartilhar
             </button>
-            <button type="button" data-testid="favorite-btn">
+            <button
+              type="button"
+              data-testid="favorite-btn"
+              className="button"
+            >
               Favoritar
             </button>
             <button
@@ -101,6 +110,7 @@ function RevenueOfMeals({ meals }) {
               data-testid="finish-recipe-btn"
               disabled={ !isDisabled }
               onClick={ handleClick }
+              className="button4"
             >
               Finalizar a receita
             </button>

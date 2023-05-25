@@ -6,6 +6,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import { requiretName } from '../redux/actions/action';
 import SearchBar from './SearchBar';
+import '../App.css';
 
 function Header({ search, titlePage, iconProfile, iconSearch, name, requiret }) {
   const [visibleSearch, setVisibleSearch] = useState(false);

@@ -71,6 +71,7 @@ export default class Login extends Component {
           type="button"
           data-testid="login-submit-btn"
           onClick={ this.submitLocale }
+          className="button4"
           disabled={ isDisabled }
         >
           Enter

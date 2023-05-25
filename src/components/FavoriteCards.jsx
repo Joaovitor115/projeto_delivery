@@ -18,11 +18,11 @@ function FavoriteCard({ recipe, index }) {
     <div key={ index }>
       <br />
       <Link to={ `${recipe.type}s/${recipe.id}` }>
-        <div
+        <h3
           data-testid={ `${index}-horizontal-name` }
         >
           {recipe.name}
-        </div>
+        </h3>
         <img
           src={ recipe.image }
           data-testid={ `${index}-horizontal-image` }
@@ -34,16 +34,16 @@ function FavoriteCard({ recipe, index }) {
       {
         recipe.type === 'drink'
           ? (
-            <div data-testid={ `${index}-horizontal-top-text` }>
+            <h3 data-testid={ `${index}-horizontal-top-text` }>
               {recipe.alcoholicOrNot}
-            </div>) : null
+            </h3>) : null
       }
 
-      <div
+      <h3
         data-testid={ `${index}-horizontal-top-text` }
       >
         {`${recipe.nationality} - ${recipe.category}`}
-      </div>
+      </h3>
       <input
         src={ shareicon }
         type="image"

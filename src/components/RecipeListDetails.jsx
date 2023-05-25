@@ -93,13 +93,15 @@ function RecipeListDetails({
         />
       </label>
 
-      <button
-        onClick={ clickedCopy }
-        data-testid="share-btn"
-        type="button"
-      >
-        <img src={ iconShare } alt="icone-compartilhar" />
-      </button>
+      <label htmlFor="share-btn">
+        <input
+          onClick={ clickedCopy }
+          data-testid="share-btn"
+          type="image"
+          src={ iconShare }
+          alt="Share with friends"
+        />
+      </label>
       {confirmCopy && <p>Link copied!</p>}
       <img
         className="image-recipes"

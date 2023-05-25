@@ -58,6 +58,7 @@ function MealsRecipes({
       <button
         type="button"
         data-testid="exec-search-btn"
+        className="button4"
         onClick={ handClick }
       >
         Search

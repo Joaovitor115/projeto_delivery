@@ -211,7 +211,7 @@ function RecipesDetails({ recipe, sixDrinks, sixMeals, setPageSelect }) {
           />
           { !verificationDone() && (
             <button
-              className="button-start-recipe"
+              className="button-start-recipe button4"
               type="button"
               data-testid="start-recipe-btn"
               onClick={ () => history

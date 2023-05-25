@@ -69,6 +69,7 @@ function DoneRecipes() {
         onClick={ () => setTypesFilters({ all: true, drinks: false, meals: false }) }
         type="button"
         data-testid="filter-by-all-btn"
+        className="button"
       >
         All
       </button>
@@ -76,6 +77,8 @@ function DoneRecipes() {
         onClick={ () => setTypesFilters({ all: false, drinks: false, meals: true }) }
         data-testid="filter-by-meal-btn"
         type="button"
+        className="button"
+
       >
         Meals
       </button>
@@ -83,6 +86,8 @@ function DoneRecipes() {
         onClick={ () => setTypesFilters({ all: false, drinks: true, meals: false }) }
         type="button"
         data-testid="filter-by-drink-btn"
+        className="button"
+
       >
         Drinks
       </button>

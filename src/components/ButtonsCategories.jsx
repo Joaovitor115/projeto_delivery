@@ -52,6 +52,7 @@ function ButtonsCategories({
           type="button"
           data-testid={ `${categorie.strCategory}-category-filter` }
           key={ index }
+          className="button"
         >
           {categorie.strCategory}
         </button>
@@ -60,6 +61,7 @@ function ButtonsCategories({
         onClick={ searchAll }
         type="button"
         data-testid="All-category-filter"
+        className="button"
       >
         All
       </button>

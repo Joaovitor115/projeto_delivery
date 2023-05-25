@@ -68,6 +68,7 @@ function FavoriteRecipes() {
       <Header titlePage="Favorite Recipes" iconProfile />
       <button
         onClick={ () => setTypesFilters({ all: true, drinks: false, meals: false }) }
+        className="button"
         type="button"
         data-testid="filter-by-all-btn"
       >
@@ -75,6 +76,7 @@ function FavoriteRecipes() {
       </button>
       <button
         onClick={ () => setTypesFilters({ all: false, drinks: false, meals: true }) }
+        className="button"
         data-testid="filter-by-meal-btn"
         type="button"
       >
@@ -82,6 +84,7 @@ function FavoriteRecipes() {
       </button>
       <button
         onClick={ () => setTypesFilters({ all: false, drinks: true, meals: false }) }
+        className="button"
         type="button"
         data-testid="filter-by-drink-btn"
       >

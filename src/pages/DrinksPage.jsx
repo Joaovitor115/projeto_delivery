@@ -62,8 +62,9 @@ function DrinkRecipes({
         type="button"
         data-testid="exec-search-btn"
         onClick={ handClick }
+        className="button4"
       >
-        Entrar
+        Search
       </button>
       <Recipes />
       <Footer />

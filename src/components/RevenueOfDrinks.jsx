@@ -85,12 +85,20 @@ function RevenueOfDrinks({ drinks }) {
                 setSizeOfFinishSteps={ setSizeOfFinishSteps }
               />
               <div>
-                <p data-testid="instructions">{drinks[0].strInstructions}</p>
+                <h3 data-testid="instructions">{drinks[0].strInstructions}</h3>
               </div>
-              <button type="button" data-testid="share-btn">
+              <button
+                type="button"
+                data-testid="share-btn"
+                className="button"
+              >
                 Compartilhar
               </button>
-              <button type="button" data-testid="favorite-btn">
+              <button
+                type="button"
+                data-testid="favorite-btn"
+                className="button"
+              >
                 Favoritar
               </button>
               <button
@@ -98,6 +106,7 @@ function RevenueOfDrinks({ drinks }) {
                 data-testid="finish-recipe-btn"
                 disabled={ !isDisabled }
                 onClick={ handleClick }
+                className="button4"
               >
                 Finalizar a receita
               </button>
